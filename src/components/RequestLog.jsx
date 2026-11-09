@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { api } from '../services/bookService';
 
+let nextId = 0;
+
 // Panel didáctico: muestra cada petición HTTP que hace la app
 // (método, URL completa y código de respuesta), igual que la pestaña Network.
 export default function RequestLog() {
@@ -10,7 +12,7 @@ export default function RequestLog() {
     const add = (config, status) => {
       const url = `${config.baseURL ?? ''}${config.url}`;
       setEntries((prev) => [
-        { id: crypto.randomUUID(), method: config.method.toUpperCase(), url, status },
+        { id: nextId++, method: config.method.toUpperCase(), url, status },
         ...prev,
       ].slice(0, 6));
     };
